@@ -4228,7 +4228,9 @@ sub linux_btrfs_snapshot_create {
 	print_cmd(@cmd_stack);
 	if (0 == $test) {
 
-		$result = system(@cmd_stack);
+		# silence gratuitous btrfs subvolume snapshot output
+		#$result = system(@cmd_stack);
+		$result = system(join " ", @cmd_stack, ">/dev/null");
 
 		if ($result != 0) {
 			bail("Create BTRFS snapshot failed: $result");
@@ -4263,7 +4265,9 @@ sub linux_btrfs_snapshot_del {
 	print_cmd(@cmd_stack);
 	if (0 == $test) {
 
-		$result = system(@cmd_stack);
+		# silence gratuitous btrfs subvolume delete output
+		#$result = system(@cmd_stack);
+		$result = system(join " ", @cmd_stack, ">/dev/null");
 
 		if ($result != 0) {
 			bail("Removal of BTRFS snapshot failed: $result");
